@@ -1,0 +1,243 @@
+//////////////////////////////////////////////////////////////////////////////////
+
+/* CE1007/CZ1007 Data Structures
+실습 시험: Section A - 연결 리스트 문제
+목적: 문제 7에서 요구하는 함수를 구현하기 */
+
+//////////////////////////////////////////////////////////////////////////////////
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//////////////////////////////////////////////////////////////////////////////////
+
+typedef struct _listnode
+{
+	int item;
+	struct _listnode *next;
+} ListNode;			// ListNode 구조체 정의는 변경하면 안 됨
+
+typedef struct _linkedlist
+{
+	int size;
+	ListNode *head;
+} LinkedList;			// LinkedList 구조체 정의는 변경하면 안 됨
+
+//////////////////////// function prototypes /////////////////////////////////////
+
+// 이 함수의 원형(prototype)은 변경하면 안 됨
+void RecursiveReverse(ListNode **ptrHead);
+
+void printList(LinkedList *ll);
+void removeAllItems(LinkedList *ll);
+ListNode * findNode(LinkedList *ll, int index);
+int insertNode(LinkedList *ll, int index, int value);
+int removeNode(LinkedList *ll, int index);
+
+
+//////////////////////////// main() //////////////////////////////////////////////
+
+int main()
+{
+	LinkedList ll;
+	int c, i, j;
+	c = 1;
+
+	// 연결 리스트를 빈 리스트로 초기화
+	ll.head = NULL;
+	ll.size = 0;
+
+
+	printf("1: Insert an integer to the linked list:\n");
+	printf("2: Reversed the linked list:\n");
+	printf("0: Quit:\n");
+
+	while (c != 0)
+	{
+		printf("Please input your choice(1/2/0): ");
+		scanf("%d", &c);
+
+		switch (c)
+		{
+		case 1:
+			printf("Input an integer that you want to add to the linked list: ");
+			scanf("%d", &i);
+			j = insertNode(&ll, ll.size, i);
+			printf("The resulting linked list is: ");
+			printList(&ll);
+			break;
+		case 2:
+			RecursiveReverse(&(ll.head)); // 이 함수를 직접 구현해야 함
+			printf("The resulting linked list after reversed the given linked list is: ");
+			printList(&ll);
+			removeAllItems(&ll);
+			break;
+		case 0:
+			removeAllItems(&ll);
+			break;
+		default:
+			printf("Choice unknown;\n");
+			break;
+		}
+	}
+	return 0;
+}
+
+////////////////////////////////////////////////////////////////////////
+
+void RecursiveReverse(ListNode **ptrHead)
+{
+	/* 여기에 코드를 작성 */
+
+	ListNode *first, *second;
+
+	// TODO 1. 종료 조건(base case)
+	// 포인터가 없거나, 빈 리스트이거나, 노드가 1개뿐이면 끝
+	if (ptrHead == NULL || *ptrHead == NULL || (*ptrHead)->next == NULL)
+		return;
+
+	// TODO 2. 첫 번째 노드와 두 번째 노드를 분리해서 잡음
+	first = *ptrHead;
+	second = first->next;
+
+	// TODO 3. 첫 노드를 잠깐 분리
+	// 나중에 맨 뒤에 붙일 것이므로 next를 끊어 둠
+	first->next = NULL;
+
+	// TODO 4. 두 번째 노드부터 시작하는 부분 리스트를 재귀적으로 뒤집음
+	RecursiveReverse(&second);
+
+	// TODO 5. 뒤집힌 리스트의 맨 끝을 찾아 첫 번째 노드를 붙임
+	{
+		ListNode *temp = second;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = first;
+	}
+
+	// TODO 6. 새 head를 원래 head 포인터에 반영
+	*ptrHead = second;
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+
+void printList(LinkedList *ll){
+
+	ListNode *cur;
+	if (ll == NULL)
+		return;
+	cur = ll->head;
+
+	if (cur == NULL)
+		printf("Empty");
+	while (cur != NULL)
+	{
+		printf("%d ", cur->item);
+		cur = cur->next;
+	}
+	printf("\n");
+}
+
+ListNode * findNode(LinkedList *ll, int index){
+
+	ListNode *temp;
+
+	if (ll == NULL || index < 0 || index >= ll->size)
+		return NULL;
+
+	temp = ll->head;
+
+	if (temp == NULL || index < 0)
+		return NULL;
+
+	while (index > 0){
+		temp = temp->next;
+		if (temp == NULL)
+			return NULL;
+		index--;
+	}
+
+	return temp;
+}
+
+int insertNode(LinkedList *ll, int index, int value){
+
+	ListNode *pre, *cur;
+
+	if (ll == NULL || index < 0 || index > ll->size + 1)
+		return -1;
+
+	// 빈 리스트에 삽입하거나 첫 번째 위치에 삽입하면 head 포인터를 갱신해야 함
+	if (ll->head == NULL || index == 0){
+		cur = ll->head;
+		ll->head = malloc(sizeof(ListNode));
+		ll->head->item = value;
+		ll->head->next = cur;
+		ll->size++;
+		return 0;
+	}
+
+
+	// 삽입 위치의 이전 노드를 찾음
+	// 새 노드를 만든 뒤 링크를 다시 연결
+	if ((pre = findNode(ll, index - 1)) != NULL){
+		cur = pre->next;
+		pre->next = malloc(sizeof(ListNode));
+		pre->next->item = value;
+		pre->next->next = cur;
+		ll->size++;
+		return 0;
+	}
+
+	return -1;
+}
+
+
+int removeNode(LinkedList *ll, int index){
+
+	ListNode *pre, *cur;
+
+	// 삭제 가능한 가장 큰 인덱스는 size-1
+	if (ll == NULL || index < 0 || index >= ll->size)
+		return -1;
+
+	// 첫 번째 노드를 삭제하면 head 포인터를 갱신해야 함
+	if (index == 0){
+		cur = ll->head->next;
+		free(ll->head);
+		ll->head = cur;
+		ll->size--;
+
+		return 0;
+	}
+
+	// 삭제할 위치의 이전 노드를 찾음
+	// 대상 노드를 해제한 뒤 링크를 다시 연결
+	if ((pre = findNode(ll, index - 1)) != NULL){
+
+		if (pre->next == NULL)
+			return -1;
+
+		cur = pre->next;
+		pre->next = cur->next;
+		free(cur);
+		ll->size--;
+		return 0;
+	}
+
+	return -1;
+}
+
+void removeAllItems(LinkedList *ll)
+{
+	ListNode *cur = ll->head;
+	ListNode *tmp;
+
+	while (cur != NULL){
+		tmp = cur->next;
+		free(cur);
+		cur = tmp;
+	}
+	ll->head = NULL;
+	ll->size = 0;
+}
