@@ -1,8 +1,8 @@
-//////////////////////////////////////////////////////////////////////////////////
+﻿//////////////////////////////////////////////////////////////////////////////////
 
 /* CE1007/CZ1007 Data Structures
-Lab Test: Section C - Stack and Queue Questions
-Purpose: Implementing the required functions for Question 1 */
+실습 시험: Section C - 스택과 큐 문제
+목적: 문제 1에서 요구하는 함수를 구현하기 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -15,23 +15,23 @@ typedef struct _listnode
 {
 	int item;
 	struct _listnode *next;
-} ListNode;	// You should not change the definition of ListNode
+} ListNode;	// ListNode 구조체 정의는 변경하면 안 됨
 
 typedef struct _linkedlist
 {
 	int size;
 	ListNode *head;
-} LinkedList;	// You should not change the definition of LinkedList
+} LinkedList;	// LinkedList 구조체 정의는 변경하면 안 됨
 
 
 typedef struct _queue
 {
 	LinkedList ll;
-} Queue;  // You should not change the definition of Queue
+} Queue;  // Queue 구조체 정의는 변경하면 안 됨
 
 ///////////////////////// function prototypes ////////////////////////////////////
 
-// You should not change the prototypes of these functions
+// 이 함수들의 원형(prototype)은 변경하면 안 됨
 void createQueueFromLinkedList(LinkedList *ll, Queue *q);
 void removeOddValues(Queue *q);
 
@@ -56,11 +56,11 @@ int main()
 
 	c = 1;
 
-	// Initialize the linked list as an empty linked list
+	// 연결 리스트를 빈 리스트로 초기화
 	ll.head = NULL;
 	ll.size = 0;
 
-	// Initialize the Queue as an empty queue
+	// Queue를 빈 큐로 초기화
 	q.ll.head = NULL;
 	q.ll.size = 0;
 
@@ -86,12 +86,12 @@ int main()
 			printList(&ll);
 			break;
 		case 2:
-			createQueueFromLinkedList(&ll, &q); // You need to code this function
+			createQueueFromLinkedList(&ll, &q); // 이 함수를 직접 구현해야 함
 			printf("The resulting queue is: ");
 			printList(&(q.ll));
 			break;
 		case 3:
-			removeOddValues(&q); // You need to code this function
+			removeOddValues(&q); // 이 함수를 직접 구현해야 함
 			printf("The resulting queue after removing odd integers is: ");
 			printList(&(q.ll));
 			removeAllItemsFromQueue(&q);
@@ -116,12 +116,12 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+	/* 여기에 코드를 작성 */
 }
 
 void removeOddValues(Queue *q)
 {
-	/* add your code here */
+	/* 여기에 코드를 작성 */
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -220,7 +220,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
-	// If empty list or inserting first node, need to update head pointer
+	// 빈 리스트에 삽입하거나 첫 번째 위치에 삽입하면 head 포인터를 갱신해야 함
 	if (ll->head == NULL || index == 0){
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
@@ -235,8 +235,8 @@ int insertNode(LinkedList *ll, int index, int value){
 	}
 
 
-	// Find the nodes before and at the target position
-	// Create a new node and reconnect the links
+	// 삽입 위치의 이전 노드를 찾음
+	// 새 노드를 만든 뒤 링크를 다시 연결
 	if ((pre = findNode(ll, index - 1)) != NULL){
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
@@ -258,11 +258,11 @@ int removeNode(LinkedList *ll, int index){
 
 	ListNode *pre, *cur;
 
-	// Highest index we can remove is size-1
+	// 삭제 가능한 가장 큰 인덱스는 size-1
 	if (ll == NULL || index < 0 || index >= ll->size)
 		return -1;
 
-	// If removing first node, need to update head pointer
+	// 첫 번째 노드를 삭제하면 head 포인터를 갱신해야 함
 	if (index == 0){
 		cur = ll->head->next;
 		free(ll->head);
@@ -271,8 +271,8 @@ int removeNode(LinkedList *ll, int index){
 		return 0;
 	}
 
-	// Find the nodes before and after the target position
-	// Free the target node and reconnect the links
+	// 삭제할 위치의 이전 노드를 찾음
+	// 대상 노드를 해제한 뒤 링크를 다시 연결
 	if ((pre = findNode(ll, index - 1)) != NULL){
 
 		if (pre->next == NULL)
@@ -287,3 +287,4 @@ int removeNode(LinkedList *ll, int index){
 
 	return -1;
 }
+

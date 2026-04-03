@@ -1,8 +1,8 @@
-//////////////////////////////////////////////////////////////////////////////////
+﻿//////////////////////////////////////////////////////////////////////////////////
 
 /* CE1007/CZ1007 Data Structures
-Lab Test: Section E - Binary Trees Questions
-Purpose: Implementing the required functions for Question 4 */
+실습 시험: Section E - 이진 트리 문제
+목적: 문제 4에서 요구하는 함수를 구현하기 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@ typedef struct _btnode
     int item;
     struct _btnode *left;
     struct _btnode *right;
-} BTNode;   // You should not change the definition of BTNode
+} BTNode;   // BTNode 구조체 정의는 변경하면 안 됨
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -34,7 +34,7 @@ typedef struct _stack
 
 ///////////////////////// Function prototypes ////////////////////////////////////
 
-// You should not change the prototypes of these functions
+// 이 함수들의 원형(prototype)은 변경하면 안 됨
 int sumOfOddNodes(BTNode *root);
 
 BTNode *createBTNode(int item);
@@ -103,7 +103,7 @@ int main()
 int sumOfOddNodes(BTNode *node)
 
 {
-    /* add your code here */
+    /* 여기에 코드를 작성 */
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -231,4 +231,5 @@ void removeAll(BTNode **node)
         *node = NULL;
     }
 }
+
 

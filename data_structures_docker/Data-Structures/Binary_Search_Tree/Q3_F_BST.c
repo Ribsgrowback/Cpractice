@@ -1,8 +1,8 @@
-//////////////////////////////////////////////////////////////////////////////////
+﻿//////////////////////////////////////////////////////////////////////////////////
 
 /* CE1007/CZ1007 Data Structures
-Lab Test: Section F - Binary Search Trees Questions
-Purpose: Implementing the required functions for Question 3 */
+실습 시험: Section F - 이진 탐색 트리 문제
+목적: 문제 3에서 요구하는 함수를 구현하기 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -15,21 +15,21 @@ typedef struct _bstnode{
 	int item;
 	struct _bstnode *left;
 	struct _bstnode *right;
-} BSTNode;   // You should not change the definition of BSTNode
+} BSTNode;   // BSTNode 구조체 정의는 변경하면 안 됨
 
 typedef struct _stackNode{
 	BSTNode *data;
 	struct _stackNode *next;
-}StackNode; // You should not change the definition of StackNode
+}StackNode; // Stack 구조체 정의는 변경하면 안 됨Node
 
 typedef struct _stack
 {
 	StackNode *top;
-}Stack; // You should not change the definition of Stack
+}Stack; // Stack 구조체 정의는 변경하면 안 됨
 
 ///////////////////////// function prototypes ////////////////////////////////////
 
-// You should not change the prototypes of these functions
+// 이 함수들의 원형(prototype)은 변경하면 안 됨
 void preOrderIterative(BSTNode *root);
 
 void insertBSTNode(BSTNode **node, int value);
@@ -48,7 +48,7 @@ int main()
 	int c, i;
 	c = 1;
 
-	//Initialize the Binary Search Tree as an empty Binary Search Tree
+	// 이진 탐색 트리를 빈 트리로 초기화
 	BSTNode * root;
 	root = NULL;
 
@@ -71,7 +71,7 @@ int main()
 			break;
 		case 2:
 			printf("The resulting pre-order traversal of the binary search tree is: ");
-			preOrderIterative(root); // You need to code this function
+			preOrderIterative(root); // 이 함수를 직접 구현해야 함
 			printf("\n");
 			break;
 		case 0:
@@ -91,7 +91,7 @@ int main()
 
 void preOrderIterative(BSTNode *root)
 {
-	 /* add your code here */
+	 /* 여기에 코드를 작성 */
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -196,3 +196,4 @@ void removeAll(BSTNode **node)
 		*node = NULL;
 	}
 }
+

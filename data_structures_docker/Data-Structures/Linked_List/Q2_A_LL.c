@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 /* CE1007/CZ1007 Data Structures
-Lab Test: Section A - Linked List Questions
-Purpose: Implementing the required functions for Question 2 */
+실습 시험: Section A - 연결 리스트 문제
+목적: 문제 2에서 요구하는 함수를 구현하기 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -15,18 +15,18 @@ typedef struct _listnode
 {
 	int item;
 	struct _listnode *next;
-} ListNode;			// You should not change the definition of ListNode
+} ListNode;			// ListNode 구조체 정의는 변경하면 안 됨
 
 typedef struct _linkedlist
 {
 	int size;
 	ListNode *head;
-} LinkedList;			// You should not change the definition of LinkedList
+} LinkedList;			// LinkedList 구조체 정의는 변경하면 안 됨
 
 
 //////////////////////// function prototypes /////////////////////////////////////
 
-// You should not change the prototype of this function
+// 이 함수의 원형(prototype)은 변경하면 안 됨
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2);
 
 void printList(LinkedList *ll);
@@ -43,11 +43,11 @@ int main()
 	LinkedList ll1, ll2;
 	int c, i, j;
 	c = 1;
-	//Initialize the linked list 1 as an empty linked list
+	// 연결 리스트 1을 빈 리스트로 초기화
 	ll1.head = NULL;
 	ll1.size = 0;
 
-	//Initialize the linked list 2 as an empty linked list
+	// 연결 리스트 2를 빈 리스트로 초기화
 	ll2.head = NULL;
 	ll2.size = 0;
 
@@ -79,7 +79,7 @@ int main()
 			break;
 		case 3:
 		    printf("The resulting linked lists after merging the given linked list are:\n");
-			alternateMergeLinkedList(&ll1, &ll2); // You need to code this function
+			alternateMergeLinkedList(&ll1, &ll2); // 이 함수를 직접 구현해야 함
 			printf("The resulting linked list 1: ");
 			printList(&ll1);
 			printf("The resulting linked list 2: ");
@@ -103,7 +103,7 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+    /* 여기에 코드를 작성 */
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -170,7 +170,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
-	// If empty list or inserting first node, need to update head pointer
+	// 빈 리스트에 삽입하거나 첫 번째 위치에 삽입하면 head 포인터를 갱신해야 함
 	if (ll->head == NULL || index == 0){
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
@@ -181,8 +181,8 @@ int insertNode(LinkedList *ll, int index, int value){
 	}
 
 
-	// Find the nodes before and at the target position
-	// Create a new node and reconnect the links
+	// 삽입 위치의 이전 노드를 찾음
+	// 새 노드를 만든 뒤 링크를 다시 연결
 	if ((pre = findNode(ll, index - 1)) != NULL){
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
@@ -200,11 +200,11 @@ int removeNode(LinkedList *ll, int index){
 
 	ListNode *pre, *cur;
 
-	// Highest index we can remove is size-1
+	// 삭제 가능한 가장 큰 인덱스는 size-1
 	if (ll == NULL || index < 0 || index >= ll->size)
 		return -1;
 
-	// If removing first node, need to update head pointer
+	// 첫 번째 노드를 삭제하면 head 포인터를 갱신해야 함
 	if (index == 0){
 		cur = ll->head->next;
 		free(ll->head);
@@ -214,8 +214,8 @@ int removeNode(LinkedList *ll, int index){
 		return 0;
 	}
 
-	// Find the nodes before and after the target position
-	// Free the target node and reconnect the links
+	// 삭제할 위치의 이전 노드를 찾음
+	// 대상 노드를 해제한 뒤 링크를 다시 연결
 	if ((pre = findNode(ll, index - 1)) != NULL){
 
 		if (pre->next == NULL)
