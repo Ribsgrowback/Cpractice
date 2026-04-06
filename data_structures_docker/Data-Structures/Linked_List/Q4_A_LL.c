@@ -15,14 +15,13 @@ typedef struct _listnode
 {
 	int item;
 	struct _listnode *next;
-} ListNode;			// ListNode 구조체 정의는 변경하면 안 됨
+} ListNode; // ListNode 구조체 정의는 변경하면 안 됨
 
 typedef struct _linkedlist
 {
 	int size;
 	ListNode *head;
-} LinkedList;			// LinkedList 구조체 정의는 변경하면 안 됨
-
+} LinkedList; // LinkedList 구조체 정의는 변경하면 안 됨
 
 //////////////////////// function prototypes /////////////////////////////////////
 
@@ -31,7 +30,7 @@ void moveEvenItemsToBack(LinkedList *ll);
 
 void printList(LinkedList *ll);
 void removeAllItems(LinkedList *ll);
-ListNode * findNode(LinkedList *ll, int index);
+ListNode *findNode(LinkedList *ll, int index);
 int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
 
@@ -45,7 +44,6 @@ int main()
 	// 연결 리스트를 빈 리스트로 초기화
 	ll.head = NULL;
 	ll.size = 0;
-
 
 	printf("1: Insert an integer to the linked list:\n");
 	printf("2: Move all even integers to the back of the linked list:\n");
@@ -86,12 +84,57 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
-	/* 여기에 코드를 작성 */
+	ListNode *cur, *prev, *tail;
+	int count, originalSize;
+
+	if (ll == NULL || ll->head == NULL || ll->head->next == NULL)
+		return;
+
+	tail = ll->head;
+	while (tail->next != NULL)
+	{
+		tail = tail->next;
+	}
+
+	cur = ll->head;
+	prev = NULL;
+	originalSize = ll->size;
+	count = 0;
+
+	while (count < originalSize && cur != NULL)
+	{
+		if (cur->item % 2 == 0)
+		{
+			ListNode *next = cur->next;
+
+			if (prev == NULL)
+			{
+				ll->head = next;
+			}
+			else
+			{
+				prev->next = next;
+			}
+
+			tail->next = cur;
+			cur->next = NULL;
+			tail = cur;
+			cur = next;
+		}
+		else
+		{
+			prev = cur;
+			cur = cur->next;
+		}
+
+		count++;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-void printList(LinkedList *ll){
+void printList(LinkedList *ll)
+{
 
 	ListNode *cur;
 	if (ll == NULL)
@@ -108,13 +151,13 @@ void printList(LinkedList *ll){
 	printf("\n");
 }
 
-
 void removeAllItems(LinkedList *ll)
 {
 	ListNode *cur = ll->head;
 	ListNode *tmp;
 
-	while (cur != NULL){
+	while (cur != NULL)
+	{
 		tmp = cur->next;
 		free(cur);
 		cur = tmp;
@@ -123,8 +166,8 @@ void removeAllItems(LinkedList *ll)
 	ll->size = 0;
 }
 
-
-ListNode *findNode(LinkedList *ll, int index){
+ListNode *findNode(LinkedList *ll, int index)
+{
 
 	ListNode *temp;
 
@@ -136,7 +179,8 @@ ListNode *findNode(LinkedList *ll, int index){
 	if (temp == NULL || index < 0)
 		return NULL;
 
-	while (index > 0){
+	while (index > 0)
+	{
 		temp = temp->next;
 		if (temp == NULL)
 			return NULL;
@@ -146,7 +190,8 @@ ListNode *findNode(LinkedList *ll, int index){
 	return temp;
 }
 
-int insertNode(LinkedList *ll, int index, int value){
+int insertNode(LinkedList *ll, int index, int value)
+{
 
 	ListNode *pre, *cur;
 
@@ -154,7 +199,8 @@ int insertNode(LinkedList *ll, int index, int value){
 		return -1;
 
 	// 빈 리스트에 삽입하거나 첫 번째 위치에 삽입하면 head 포인터를 갱신해야 함
-	if (ll->head == NULL || index == 0){
+	if (ll->head == NULL || index == 0)
+	{
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
 		ll->head->item = value;
@@ -163,10 +209,10 @@ int insertNode(LinkedList *ll, int index, int value){
 		return 0;
 	}
 
-
 	// 삽입 위치의 이전 노드를 찾음
 	// 새 노드를 만든 뒤 링크를 다시 연결
-	if ((pre = findNode(ll, index - 1)) != NULL){
+	if ((pre = findNode(ll, index - 1)) != NULL)
+	{
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
 		pre->next->item = value;
@@ -178,8 +224,8 @@ int insertNode(LinkedList *ll, int index, int value){
 	return -1;
 }
 
-
-int removeNode(LinkedList *ll, int index){
+int removeNode(LinkedList *ll, int index)
+{
 
 	ListNode *pre, *cur;
 
@@ -188,7 +234,8 @@ int removeNode(LinkedList *ll, int index){
 		return -1;
 
 	// 첫 번째 노드를 삭제하면 head 포인터를 갱신해야 함
-	if (index == 0){
+	if (index == 0)
+	{
 		cur = ll->head->next;
 		free(ll->head);
 		ll->head = cur;
@@ -199,7 +246,8 @@ int removeNode(LinkedList *ll, int index){
 
 	// 삭제할 위치의 이전 노드를 찾음
 	// 대상 노드를 해제한 뒤 링크를 다시 연결
-	if ((pre = findNode(ll, index - 1)) != NULL){
+	if ((pre = findNode(ll, index - 1)) != NULL)
+	{
 
 		if (pre->next == NULL)
 			return -1;
