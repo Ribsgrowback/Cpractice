@@ -22,6 +22,28 @@
                 "isDefault": true
             },
             "detail": "컴파일러: /usr/bin/gcc"
+        },
+        {
+            "type": "shell",
+            "label": "Build Q3_A_LL",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-g",
+                "${workspaceFolder}/data_structures_docker/Data-Structures/Linked_List/Q3_A_LL.c",
+                "-o",
+                "${workspaceFolder}/data_structures_docker/Data-Structures/Linked_List/Q3_A_LL"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/data_structures_docker/Data-Structures/Linked_List"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "컴파일 Q3_A_LL"
         }
     ]
 }

@@ -89,14 +89,187 @@ void moveOddItemsToBack(LinkedList *ll)
 {
 	/* 여기에 코드를 작성 */
 
-	int originalSize, i, index, value;
+	int originalSize;
+	int i, index, value;
 	ListNode *cur;
 
 	// TODO 1. 예외 상황 확인
 	// 리스트가 없거나 노드가 0개 또는 1개면 그대로 종료
-	if (ll == NULL || ll->size <= 1)
+	if (ll == NULL || ll->size <= 1){
 		return;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+	}
 	// TODO 2. "원래 리스트 길이"를 먼저 저장
 	// remove + insert를 하면 size가 다시 같아지므로,
 	// 처음 길이만큼만 검사해야 뒤에 붙인 홀수를 다시 보지 않음
@@ -107,13 +280,16 @@ void moveOddItemsToBack(LinkedList *ll)
 	for (i = 0; i < originalSize; i++)
 	{
 		cur = findNode(ll, index);
+
+		if (cur == NULL) return;   // 또는 break;
+
 		value = cur->item;
 
 		// TODO 4. 현재 값이 홀수면
 		// 현재 위치 노드를 제거하고 같은 값을 맨 뒤에 다시 삽입
 		// index는 증가시키지 않음
 		// 이유: 다음 원소가 현재 index 자리로 당겨지기 때문
-		if (value % 2 != 0)
+		if ((value % 2) != 0)
 		{
 			removeNode(ll, index);
 			insertNode(ll, ll->size, value);

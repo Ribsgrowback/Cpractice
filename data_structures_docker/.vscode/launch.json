@@ -19,6 +19,26 @@
                 }
             ],
             "preLaunchTask": "C/C++: gcc build active file"
+        },
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "name": "Debug Q3_A_LL",
+            "program": "${workspaceFolder}/data_structures_docker/Data-Structures/Linked_List/Q3_A_LL",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/data_structures_docker/Data-Structures/Linked_List",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build Q3_A_LL"
         }
     ],
     "version": "0.2.0"
