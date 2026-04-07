@@ -102,7 +102,24 @@ int main()
 
 int hasGreatGrandchild(BTNode *node)
 {
-	/* 여기에 코드를 작성 */
+    if(node == NULL)
+        return 0;
+
+    if(node->left != NULL && node->right != NULL)
+    {
+        // if(node->left->left != NULL || node->left->right != NULL || node->right->left != NULL || node->right->right != NULL)
+        // {
+        //     printf("%d ", node->item);
+        //     return 1;
+        // }
+        if(node->left->left != NULL || node->left->right != NULL || node->right->left != NULL || node->right->right != NULL)
+        {
+            printf("%d ", node->item);
+            return 1 + hasGreatGrandchild(node->left) + hasGreatGrandchild(node->right);
+        }
+    }
+
+    return hasGreatGrandchild(node->left) + hasGreatGrandchild(node->right);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

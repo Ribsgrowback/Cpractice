@@ -1,0 +1,24 @@
+# Q6_E_BT Test Case 1
+
+# Interactive input sequence for the program:
+1
+50
+30
+60
+25
+a
+a
+a
+10
+75
+a
+a
+a
+a
+2
+55
+0
+
+# Expected output (relevant lines):
+The resulting binary tree is: 25 30 65 50 10 60 75
+The values smaller than 55 are: 50 30 25 10

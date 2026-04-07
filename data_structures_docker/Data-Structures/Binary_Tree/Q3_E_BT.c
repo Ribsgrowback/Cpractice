@@ -102,6 +102,13 @@ int countOneChildNodes(BTNode *node)
 
 {
     /* 여기에 코드를 작성 */
+    if(node == NULL)
+        return 0;
+    if((node->left == NULL && node->right != NULL) || (node->left != NULL && node->right == NULL))
+        return 1 + countOneChildNodes(node->left) + countOneChildNodes(node->right);
+    else    
+        return countOneChildNodes(node->left) + countOneChildNodes(node->right); 
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

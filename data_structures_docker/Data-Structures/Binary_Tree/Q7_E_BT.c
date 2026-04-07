@@ -102,7 +102,18 @@ int main()
 
 int smallestValue(BTNode *node)
 {
-	/* 여기에 코드를 작성 */
+    if (node == NULL) return 0;  // 트리가 비어 있으면 큰 값 반환 (에러 처리용)
+
+    int min_val = node->item; //현재값
+
+    int left_min = smallestValue(node->left); //재귀
+    if (left_min < min_val) min_val = left_min;
+
+    // 오른쪽 서브트리 순회
+    int right_min = smallestValue(node->right);
+    if (right_min < min_val) min_val = right_min;
+
+    return min_val;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
