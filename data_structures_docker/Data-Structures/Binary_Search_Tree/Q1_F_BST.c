@@ -93,8 +93,58 @@ int main()
 
 void levelOrderTraversal(BSTNode* root)
 {
-
     /* 여기에 코드를 작성 */
+
+	//재귀 DFS는 조건에 안맞음
+
+	/* pseudo 코드로 로직 먼저 작성
+	enqueue(root)
+	while (!empty):
+    	dequeue → 출력
+    	좌 우 노드를 큐에 삽입 
+	*/
+
+	if (root == NULL) { //트리가 비었는가??
+		return 0;
+	}
+	
+
+	/*
+	QueueNode 구조 
+	typedef struct _QueueNode {
+		BSTNode *data;
+		struct _QueueNode *nextPtr;
+	} QueueNode;
+	*/
+
+	QueueNode *head = NULL; //큐의 시작점, 마지막 포인터 
+	QueueNode *tail = NULL;
+	enqueue(&head, &tail, root);//루트노드부터 큐에 넣기
+	// 현재 큐 상태: [root]
+//			10 (root)
+//		   / \
+//		  5   15
+/*
+head
+ ↓
+[root] -> NULL
+  ↑
+tail
+*/
+
+	BSTNode *current;
+
+	while (head!=NULL) { //헤드 포인터로 남은 노드 있을 동안 체크
+		current = dequeue(&head, &tail); //큐에서 노드 꺼내기: 현재 root 노드
+		printf("%d ", current->item); 
+
+		if (current->left!=NULL) {  //왼쪽에 노드 있으면 :
+			enqueue(&head, &tail, current->left); //큐에 넣기
+		}
+		if (current->right!=NULL) {//오른쪽에 노드 있으면 :
+			enqueue(&head, &tail, current->right); //큐에 넣기
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
